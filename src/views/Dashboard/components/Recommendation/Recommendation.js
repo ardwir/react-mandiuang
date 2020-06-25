@@ -12,6 +12,9 @@ import {
   Divider
 } from '@material-ui/core';
 
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/alice-carousel.css";
+
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -44,24 +47,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const tileData=[
-  {
-    img: '/images/products/product_7.jpg',
-    title: 'SmartCash',
-    url: 'https://www.bca.co.id/en/Bisnis/Produk-dan-Layanan/Kartu-Kredit'
+const responsive = {
+  0: {
+    items: 1
   },
-  {
-    img: '/images/products/product_8.jpg',
-    title: 'Giro BCA',
-    url: 'https://www.bca.co.id/en/Bisnis/Produk-dan-Layanan/Simpanan/Giro'
+  600: {
+    items: 2
   },
-  {
-    img: '/images/products/product_9.jpg',
-    title: 'EDC BCA',
-    url: 'https://www.bca.co.id/Bisnis/Produk-dan-Layanan/E-Banking/EDC-BCA'
+  1024: {
+    items: 3
   }
-];
-
+};
 
 const Recommendation = props => {
   const { className, ...rest } = props;
@@ -77,22 +73,23 @@ const Recommendation = props => {
         title="Produt Recommendation"
       />
       <Divider />
-      <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
-        {tileData.map((tile) => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title
-              }}
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
+      <AliceCarousel
+        duration={400}
+        autoPlay={true}
+        startIndex = {1}
+        fadeOutAnimation={true}
+        mouseDragEnabled={true}
+        buttonsDisabled={true}
+        // playButtonEnabled={true}
+        responsive={responsive}
+        autoPlayInterval={2000}
+        autoPlayDirection="ltr"
+        autoPlayActionDisabled={true}
+      >
+        <img src="/images/products/product_7.jpg" />
+        <img src="/images/products/product_8.jpg" />
+        <img src="/images/products/product_9.jpg" />
+    </AliceCarousel>
     </Card>
   );
 };
