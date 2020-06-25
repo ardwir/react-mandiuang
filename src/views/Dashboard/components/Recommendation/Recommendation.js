@@ -47,17 +47,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const tileData = [
+  <img src="/images/products/product_7.jpg" />,
+  <img src="/images/products/product_8.jpg" />,
+  <img src="/images/products/product_9.jpg" />
+];
+
 const responsive = {
   0: {
     items: 1
   },
   600: {
-    items: 2
+    items: 1
   },
   1024: {
-    items: 3
+    items: 1
   }
 };
+
+const padding = {
+  paddingLeft: 450,
+  paddingRight: 0
+}
 
 const Recommendation = props => {
   const { className, ...rest } = props;
@@ -74,22 +85,21 @@ const Recommendation = props => {
       />
       <Divider />
       <AliceCarousel
+        items= {tileData}
+        stagePadding={padding}
         duration={400}
         autoPlay={true}
         startIndex = {1}
         fadeOutAnimation={true}
         mouseDragEnabled={true}
         buttonsDisabled={true}
+        fadeOutAnimation={true}
         // playButtonEnabled={true}
         responsive={responsive}
         autoPlayInterval={2000}
         autoPlayDirection="ltr"
         autoPlayActionDisabled={true}
-      >
-        <img src="/images/products/product_7.jpg" />
-        <img src="/images/products/product_8.jpg" />
-        <img src="/images/products/product_9.jpg" />
-    </AliceCarousel>
+      />
     </Card>
   );
 };
