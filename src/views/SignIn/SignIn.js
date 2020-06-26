@@ -7,7 +7,9 @@ import {
   Grid,
   Button,
   TextField,
-  Typography
+  Typography,
+  Card,
+  Divider
 } from '@material-ui/core';
 
 import Axios from 'axios';
@@ -38,13 +40,22 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(/images/background.png)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
+    // backgroundPosition: 'center'
     // backgroundColor: theme.palette.background.default,
     // height: '100%'
   },
   grid: {
     // backgroundColor: '#d1dae8',
-    height: '100%'
+    display: 'flex',
+    height: '100%',
+    direction: "column",
+    alignItems: "right",
+    justify: "center",
+  },
+  card:{
+    // display: 'flex',
+    width: '600px',
+    // width: '100%'
   },
   quoteContainer: {
     [theme.breakpoints.down('md')]: {
@@ -85,6 +96,7 @@ const useStyles = makeStyles(theme => ({
   },
   contentHeader: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingTop: theme.spacing(5),
     paddingBototm: theme.spacing(2),
@@ -95,7 +107,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(4)
   },
   contentBody: {
-    // display: 'flex',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center',
@@ -112,16 +125,17 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2)
-    }
+    },
   },
   title: {
     marginTop: theme.spacing(3)
   },
   textField: {
-    marginTop: theme.spacing(2)
+    margin: theme.spacing(2),
+    paddingRight: theme.spacing(4)
   },
   signInButton: {
-    margin: theme.spacing(4,0)
+    margin: theme.spacing(2),
   }
 }));
 
@@ -177,7 +191,7 @@ const SignIn = props => {
     Axios({
       method: 'POST',
       // crossdomain: true,
-      url: API_BASE_URL + '/v1/auth/signin',
+      url: API_BASE_URL + '/v1/auth/signinAdmin',
       data: inputData,
       headers: {
         // 'Authorization': `Barer ${accessToken}`,  
@@ -231,57 +245,63 @@ const SignIn = props => {
                 <br></br>
                 <br></br>
                 <br></br>
-                <Typography
-                  align="center"
-                  className={classes.sugestion}
-                  color="textPrimary"
-                  style={{fontWeight: 'bold'}}
-                  variant="h3"
-                >
-                  Welcome To MandiUang Admin Application:
-                </Typography>
-                <br></br>
-                <TextField
-                  // style={{paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
-                  className={classes.textField}
-                  error={hasError('username')}
-                  fullWidth
-                  helperText={
-                    hasError('username') ? formState.errors.username[0] : null
-                  }
-                  label="Username"
-                  name="username"
-                  onChange={handleChange}
-                  type="text"
-                  value={formState.values.username || ''}
-                  variant="outlined"
-                />
-                <TextField
-                  // style={{paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
-                  className={classes.textField}
-                  error={hasError('password')}
-                  fullWidth
-                  helperText={
-                    hasError('password') ? formState.errors.password[0] : null
-                  }
-                  label="Password"
-                  name="password"
-                  onChange={handleChange}
-                  type="password"
-                  value={formState.values.password || ''}
-                  variant="outlined"
-                />
-                <Button
-                  className={classes.signInButton}
-                  color="primary"
-                  disabled={!formState.isValid}
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                >
-                  Sign in
-                </Button>
+                <Card className={classes.card}>
+                  <form style={{}}>
+                    <br></br>
+                    <Typography
+                      align="center"
+                      className={classes.sugestion}
+                      color="textPrimary"
+                      style={{fontWeight: 'bold'}}
+                      variant="h3"
+                    >
+                      Welcome To MandiUang Admin Application
+                    </Typography>
+                    <br></br>
+                    <Divider />
+                    <TextField
+                      className={classes.textField}
+                      width= "50%"
+                      error={hasError('username')}
+                      fullWidth
+                      helperText={
+                        hasError('username') ? formState.errors.username[0] : null
+                      }
+                      label="Username"
+                      name="username"
+                      onChange={handleChange}
+                      type="text"
+                      value={formState.values.username || ''}
+                      variant="outlined"
+                    />
+                    <TextField
+                      className={classes.textField}
+                      error={hasError('password')}
+                      fullWidth
+                      helperText={
+                        hasError('password') ? formState.errors.password[0] : null
+                      }
+                      label="Password"
+                      name="password"
+                      onChange={handleChange}
+                      type="password"
+                      value={formState.values.password || ''}
+                      variant="outlined"
+                    />
+                    <br></br>
+                    <Button
+                      className={classes.signInButton}
+                      color="primary"
+                      disabled={!formState.isValid}
+                      // fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                    >
+                      Sign in
+                    </Button>
+                  </form>
+                </Card>
               </form>
             </div>
           </div>

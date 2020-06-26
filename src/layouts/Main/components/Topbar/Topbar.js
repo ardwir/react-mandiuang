@@ -46,13 +46,16 @@ const Topbar = props => {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        <RouterLink to="/dashboard">
-          <img
-            alt="Logo"
-            src="/images/logos/mandiuang-trans.png"
-            width="10%"
-          />
-        </RouterLink>
+        <div>
+          <RouterLink to="/dashboard">
+            <img
+              alt="Logo"
+              src="/images/logos/mandiuang-trans.png"
+              width="150px"
+              
+            />
+          </RouterLink>
+        </div>
         <div className={classes.flexGrow} />
         <IconButton color="inherit">
           <Badge

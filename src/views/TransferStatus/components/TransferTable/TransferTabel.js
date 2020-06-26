@@ -221,7 +221,7 @@ const UsersTable = props => {
           id="costumized-dialog-title"
           onClose={handleRowClose}
         >
-          Transfer Detail
+          <span style={{color: 'white'}}>Transfer Detail</span>
         </DialogTitle>
         <DialogContent dividers>
           <CardContent className={classes.content}>

@@ -28,7 +28,7 @@ const Topbar = props => {
           <img
             alt="Logo"
             src="/images/logos/mandiuang-trans.png"
-            width="10%"
+            width="150px"
           />
         </RouterLink>
       </Toolbar>

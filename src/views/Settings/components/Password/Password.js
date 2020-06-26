@@ -97,7 +97,7 @@ const Password = props => {
     
     axios({
       method: 'PUT', 
-      url: API_BASE_URL + '/login-service/v1/auth/updatePassword', 
+      url: API_BASE_URL + '/v1/auth/updatePassword', 
       data: data, 
       headers: {
         'Authorization': `Bearer ${localData.accessToken}`,
