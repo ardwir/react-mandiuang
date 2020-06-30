@@ -3,20 +3,20 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import {
   Button,
   Card,
   CardActions,
-  CardHeader,
+  // CardHeader,
   CardContent,
-  Checkbox,
+  // Checkbox,
   Dialog,
   DialogActions,
   DialogTitle,
   DialogContent,
   Divider,
-  IconButton,
+  // IconButton,
   Table,
   TableBody,
   TableCell,
@@ -26,7 +26,7 @@ import {
   Tooltip,
   TableSortLabel,
   TablePagination,
-  Typography
+  // Typography
 } from '@material-ui/core';
 import { StatusBullet } from 'components';
 

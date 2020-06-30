@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 import {
   Card,
@@ -48,9 +45,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const tileData = [
-  <img src="/images/products/product_7.jpg" />,
-  <img src="/images/products/product_8.jpg" />,
-  <img src="/images/products/product_9.jpg" />
+  <a href="https://www.bca.co.id/Bisnis/Produk-dan-Layanan/Kartu-Kredit/BCA-Smartcash" target="_blank"><img src="/images/products/product_7.jpg" /></a>,
+  <a href="https://www.bca.co.id/en/Bisnis/Produk-dan-Layanan/Simpanan/Giro" target="_blank"><img src="/images/products/product_8.jpg" /></a>,
+  <a href="https://www.bca.co.id/en/Bisnis/Produk-dan-Layanan/E-Banking/Layanan-Merchant" target="_blank"><img src="/images/products/product_9.jpg" /></a>
 ];
 
 const responsive = {
@@ -66,7 +63,7 @@ const responsive = {
 };
 
 const padding = {
-  paddingLeft: 450,
+  paddingLeft: 300,
   paddingRight: 0
 }
 
@@ -81,15 +78,15 @@ const Recommendation = props => {
       className={clsx(classes.root, className)}
     >
       <CardHeader
-        title="Produt Recommendation"
+        title="Product Recommendation"
       />
       <Divider />
       <AliceCarousel
         items= {tileData}
         stagePadding={padding}
-        duration={400}
+        duration={500}
         autoPlay={true}
-        startIndex = {1}
+        startIndex = {0}
         fadeOutAnimation={true}
         mouseDragEnabled={true}
         buttonsDisabled={true}

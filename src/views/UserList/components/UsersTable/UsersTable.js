@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../../constants'
+import { API_LOGIN, API_BASE_URL } from '../../../../constants'
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
 import UsersTableToolbar from './components/UsersTableToolbar'
@@ -177,7 +177,7 @@ const UsersTable = props => {
   // ====================================== Branch User List  ======================================
   const handleRowClick2 = (branchAccountId) => {  
     setBranchId(branchAccountId);
-    axios.get(API_BASE_URL + '/login-service/v1/users/allUsers/' + branchAccountId, {
+    axios.get(API_LOGIN + '/v1/users/allUsers/' + branchAccountId, {
           headers: {
             'Authorization': `Bearer ${localData.accessToken}` 
           }
@@ -335,7 +335,7 @@ const handleDeactivateUser = event => {
   
   axios({
     method: 'DELETE', 
-    url: API_BASE_URL + '/login-service/v1/auth/deactivateUser', 
+    url: API_LOGIN + '/v1/auth/deactivateUser', 
     data: data, 
     headers: {
       'Authorization': `Bearer ${localData.accessToken}`,

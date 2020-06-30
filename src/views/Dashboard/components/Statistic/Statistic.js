@@ -11,8 +11,8 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
+import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import RefreshIcon from '@material-ui/icons/Refresh';
 
 const useStyles = makeStyles(theme => ({
@@ -85,13 +85,13 @@ const Statistic = props => {
     {
       title: 'Credit',
       value: '73',
-      icon: <AddBoxIcon />,
+      icon: <UpIcon />,
       color: theme.palette.primary.main
     },
     {
       title: 'Debit',
       value: '27',
-      icon: <IndeterminateCheckBoxIcon />,
+      icon: <DownIcon />,
       color: theme.palette.error.main
     }
   ];

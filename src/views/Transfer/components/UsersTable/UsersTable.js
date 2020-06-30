@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
 import BranchProfile from './components/BranchProfile';
-// import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";
+import validate from 'validate.js';
 
 import {
   AppBar, 
@@ -72,6 +73,12 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
   root: {},
+  dialogTitle: {
+    backgroundColor: '#00A479',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    boxShadow: '1px 3px 1px'
+  },
   tabs: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -111,6 +118,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const schema = {
+  branchAccountId: {
+    presence: { allowEmpty: false, message: 'is required' },
+  },
+  branchAccountNo: {
+    presence: { allowEmpty: false, message: 'is required' },
+    length: {
+      maximum: 10,
+      minimum: 10
+    }
+  },
+  transferType: {
+    presence: { allowEmpty: false, message: 'is required' },
+    length: {
+      maximum: 140
+    }
+  },
+  transferAmount: {
+    presence: { allowEmpty: false, message: 'is required' },
+  },
+  verificationCode: {
+    presence: { allowEmpty: false, message: 'is required' },
+    length: {
+      maximum: 8,
+      minimum: 8
+    }
+  }
+};
+
 const UsersTable = props => {
   
   const { className, users, ...rest } = props;
@@ -142,29 +178,7 @@ const UsersTable = props => {
         .catch(err => {
             console.log(err + localData.accessToken)
         })
-  }, [])
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChange2 = (event) => {
-    setDate(event.target.value);
-  };
-
-  const handleChange3 = (event) => {
-    setMonth(event.target.value);
-  };
-  
-  const handleRowClick2 = (branchAccountId, branchAcctNo) => {
-    setBranchId(branchAccountId);
-    setBranchAcctNo(branchAcctNo);
-    setOpenRow2(true);
-  };
-
-  const handleRowClose2 = () => {
-    setOpenRow2(false);
-  };
+  }, []);
 
   const handlePageChange = (event, page) => {
     setPage(page);
@@ -173,7 +187,99 @@ const UsersTable = props => {
   const handleRowsPerPageChange = event => {
     setRowsPerPage(event.target.value);
   };
+
+  // ====================================== Main To Branch Trx ======================================
+const [formState, setFormState] = useState({
+  isValid: false,
+  values: {},
+  touched: {},
+  errors: {}
+});
+const handleChange = (event, newValue) => {
+  setValue(newValue);
+};
+
+const handleChange3 = (event) => {
+  setMonth(event.target.value);
+};
+
+const handleChange2 = (event) => {
+  setDate(event.target.value);
+};
+
+// open dialog transfer
+const handleRowClick2 = (branchAccountId, branchAcctNo) => {
+  setBranchId(branchAccountId);
+  setBranchAcctNo(branchAcctNo);
+  setOpenRow2(true);
+};
+// close dialog transfer
+const handleRowClose2 = () => {
+  setOpenRow2(false);
+};
+
+useEffect(() => {
+  const errors = validate(formState.values, schema);
+
+  setFormState(formState => ({
+    ...formState,
+    isValid: errors ? false : true,
+    errors: errors || {}
+  }));
+}, [formState.values]);
+
+const handleChangeTransfer = event => {
+  event.persist();
+
+  setFormState(formState => ({
+    ...formState,
+    values: {
+      ...formState.values,
+      [event.target.name]:
+        event.target.type === 'checkbox'
+          ? event.target.checked
+          : event.target.value
+    },
+    touched: {
+      ...formState.touched,
+      [event.target.name]: true
+    }
+  }));
+};
+
+const handleTrxMainToBranch = event => {
+  event.preventDefault();
+  var data = JSON.stringify(
+    {
+      "transfer_to_acct": `${formState.values.branchAccountNo}`,
+      "branch_account_id": `${formState.values.branchAccountId}`,
+      "transfer_type": "Immediately",
+      "trx_amount": `${formState.values.transferAmount}`,
+      "verification_code": `${formState.values.verificationCode}`
+    }
+  ) 
   
+  axios({
+    method: 'POST', 
+    url: API_BASE_URL + '/trx-service/v1/transactionMain/trxMainToBranch', 
+    data: data, 
+    headers: {
+      'Authorization': `Bearer ${localData.accessToken}`,
+      'Content-Type': 'application/json'
+    }
+  }).then(res =>{
+    let statusCode = res.status
+    if (statusCode === 202){
+      console.log(data)
+      alert('Main To Branch Transfer Success')
+      window.location.reload()
+    }
+  }).catch(err => {
+    console.warn(err)
+    console.log(data)
+    alert('Deactivation Failed')
+  })
+};
   return (
     <Card
       {...rest}
@@ -213,7 +319,7 @@ const UsersTable = props => {
                     <TableCell
                       hover
                     >
-                      Rp. 10.000.000
+                      {branch.branchBalance}
                     </TableCell>
                     <TableCell
                       hover
@@ -245,8 +351,8 @@ const UsersTable = props => {
       </CardActions>
   
       <Dialog onClose={handleRowClose2} aria-labelledby="customized-dialog-title" open={openRow2} maxWidth = 'lg' fullWidth>
-        <DialogTitle id="customized-dialog-title" onClose={handleRowClose2}>
-          Transfer To Branch
+        <DialogTitle className={classes.dialogTitle} id="customized-dialog-title" onClose={handleRowClose2}>
+          <span style={{color: 'white'}}>Transfer To Branch</span>
         </DialogTitle>
         <DialogContent dividers>
           <CardContent className={classes.content}>
@@ -267,26 +373,30 @@ const UsersTable = props => {
               className={classes.textField}
               fullWidth
               label="Branch ID"
-              name="branchId"
+              name="branchAccountId"
+              value={formState.values.branchAccountId = `${branchId}` || `${branchId}`}
+              onChange={handleChangeTransfer}
               type="text"
               variant="outlined"
-              value="100"
             />
             <TextField
               disabled
               className={classes.textField}
               fullWidth
               label="Branch Account Number"
-              name="branchAccountNumber"
+              name="branchAccountNo"
+              value={formState.values.branchAccountNo = `${branchAcctNo}` || `${branchAcctNo}`}
+              onChange={handleChangeTransfer}
               type="text"
               variant="outlined"
-              value='1234567890'
             />
             <TextField
               className={classes.textField}
               fullWidth
               label="Transfer Amount"
               name="transferAmount"
+              value={formState.values.transferAmount || ''}
+              onChange={handleChangeTransfer}
               type="text"
               variant="outlined"
             />
@@ -295,6 +405,8 @@ const UsersTable = props => {
               fullWidth
               label="Verification Code"
               name="verificationCode"
+              value={formState.values.verificationCode || ''}
+              onChange={handleChangeTransfer}
               type="password"
               variant="outlined"
             />
@@ -323,7 +435,7 @@ const UsersTable = props => {
               name="branchId"
               type="text"
               variant="outlined"
-              value="100"
+              value={`${branchId}`}
             />
             <TextField
               disabled
@@ -333,7 +445,7 @@ const UsersTable = props => {
               name="branchAccountNumber"
               type="text"
               variant="outlined"
-              value='1234567890'
+              value={`${branchAcctNo}`}
             />
             <TextField
               className={classes.textField}
@@ -384,7 +496,7 @@ const UsersTable = props => {
               name="branchId"
               type="text"
               variant="outlined"
-              value="100"
+              value={`${branchId}`}
             />
             <TextField
               disabled
@@ -394,7 +506,7 @@ const UsersTable = props => {
               name="branchAccountNumber"
               type="text"
               variant="outlined"
-              value='1234567890'
+              value={`${branchAcctNo}`}
             />
             <TextField
               className={classes.textField}
@@ -508,7 +620,7 @@ const UsersTable = props => {
 
         <DialogActions>
           <Button 
-            autoFocus onClick={handleRowClose2} color="primary" 
+            autoFocus onClick={handleTrxMainToBranch} color="primary" 
             style={{paddingRight:"15px"}}
           >
             Confirm Transfer

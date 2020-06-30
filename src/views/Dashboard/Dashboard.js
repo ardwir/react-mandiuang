@@ -3,14 +3,14 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 
 import {
-  Budget,
-  TotalUsers,
-  TasksProgress,
-  TotalProfit,
-  LatestSales,
-  UsersByDevice,
-  LatestProducts,
-  LatestOrders,
+  // Budget,
+  // TotalUsers,
+  // TasksProgress,
+  // TotalProfit,
+  // LatestSales,
+  // UsersByDevice,
+  // LatestProducts,
+  // LatestOrders,
   Recommendation,
   Saldo,
   SaldoIn,

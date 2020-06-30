@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import clsx from 'clsx';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../../constants';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -13,7 +15,9 @@ import MoneyIcon from '@material-ui/icons/Money';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100%'
+    height: '100%',
+    backgroundColor: '#28B8D7',
+    color: theme.palette.primary.contrastText
   },
   content: {
     alignItems: 'center',
@@ -21,10 +25,10 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 700,
-    color: '#0bab00'
+    color: 'white'
   },
   avatar: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#1B78D7',
     color: theme.palette.primary.contrastText,
     height: 56,
     width: 56
@@ -41,7 +45,27 @@ const useStyles = makeStyles(theme => ({
 const SaldoIn = props => {
   const { className, ...rest } = props;
 
+  const [ mainProfile, setMainProfile ] = useState({});
+  const localData = JSON.parse(localStorage.getItem("data"));
+
   const classes = useStyles();
+
+  var money = `${mainProfile.bufferBalance}`;
+  var moneyDots = money.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+  useEffect(() => {
+    axios.get(API_BASE_URL + '/mainbranch-service/v1/main/mainProfile', {
+        headers: {
+          'Authorization': `Bearer ${localData.accessToken}` 
+        }
+    })
+        .then(res => {
+            console.log(res) 
+            setMainProfile(res.data);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+  }, [mainProfile.id])
 
   return (
     <Card
@@ -49,6 +73,7 @@ const SaldoIn = props => {
       className={clsx(classes.root, className)}
     >
       <CardContent>
+      <br />
         <Grid
           container
           justify="space-between"
@@ -56,13 +81,13 @@ const SaldoIn = props => {
           <Grid item>
             <Typography
               className={classes.title}
-              color="textSecondary"
+              color="inherit"
               gutterBottom
-              variant="body2"
+              variant="h4"
             >
-              Balance IN
+              Useabble Balance
             </Typography>
-            <Typography variant="h4">Rp 1.000.000.000</Typography>
+            <Typography color="inherit" variant="h4">Rp. {moneyDots}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -70,6 +95,7 @@ const SaldoIn = props => {
             </Avatar>
           </Grid>
         </Grid>
+        <br />
       </CardContent>
     </Card>
   );

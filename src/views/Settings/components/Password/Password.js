@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../../constants'
+import { API_LOGIN } from '../../../../constants'
 import { makeStyles } from '@material-ui/styles';
 import validate from 'validate.js';
 import {
@@ -12,8 +12,12 @@ import {
   CardActions,
   Divider,
   Button,
-  TextField
+  TextField,
+  FormControl,
+  InputLabel
 } from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -97,7 +101,7 @@ const Password = props => {
     
     axios({
       method: 'PUT', 
-      url: API_BASE_URL + '/v1/auth/updatePassword', 
+      url: API_LOGIN + '/v1/auth/updatePassword', 
       data: data, 
       headers: {
         'Authorization': `Bearer ${localData.accessToken}`,

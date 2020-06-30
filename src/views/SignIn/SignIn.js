@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import Axios from 'axios';
-import { API_BASE_URL } from '../../constants';
+import { API_LOGIN } from '../../constants';
 
 const schema = {
   username: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(/images/background.png)',
+    backgroundImage: 'url(/images/bg.PNG)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     // backgroundPosition: 'center'
@@ -136,6 +136,7 @@ const useStyles = makeStyles(theme => ({
   },
   signInButton: {
     margin: theme.spacing(2),
+    left: '40%'
   }
 }));
 
@@ -191,10 +192,9 @@ const SignIn = props => {
     Axios({
       method: 'POST',
       // crossdomain: true,
-      url: API_BASE_URL + '/v1/auth/signinAdmin',
+      url: API_LOGIN + '/v1/auth/signinAdmin',
       data: inputData,
-      headers: {
-        // 'Authorization': `Barer ${accessToken}`,  
+      headers: {  
         'Content-Type': 'application/json'
       }
     }).then(Response => {
@@ -236,17 +236,26 @@ const SignIn = props => {
                 className={classes.form}
                 onSubmit={handleSignIn}
               >
-                <img
+                {/* <img
                   alt="Logo"
-                  src="/images/logos/mandiuang-trans.png"
+                  src="/images/logos/MandiUangSignIn.PNG"
                   style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
                 />
                 <br></br>
+                <br></br> */}
                 <br></br>
                 <br></br>
                 <br></br>
                 <Card className={classes.card}>
                   <form style={{}}>
+                  <img
+                    alt="Logo"
+                    src="/images/logos/MandiUangSignIn.PNG"
+                    style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
+                  />
+                    <br></br>
+                    <br></br>
+                    <br></br>
                     <br></br>
                     <Typography
                       align="center"

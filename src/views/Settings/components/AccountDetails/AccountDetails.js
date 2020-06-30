@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { API_BASE_URL } from '../../../../constants'
+import { API_LOGIN, API_BASE_URL } from '../../../../constants';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -41,7 +41,7 @@ const AccountDetails = props => {
   };
   
   useEffect(() => {
-    axios.get(API_BASE_URL + '/login-service/v1/user/admin', {
+    axios.get(API_LOGIN + '/v1/user/admin', {
         headers: {
           'Authorization': `Bearer ${localData.accessToken}` 
         }
@@ -88,21 +88,21 @@ const AccountDetails = props => {
               gutterBottom
               variant="h2"
             >
-              {mainProfile.mainAccountName}
+              Account Name: {mainProfile.mainAccountName}
             </Typography>
             <Typography
               gutterBottom
               color='textSecondray'
               variant='h4'
             >
-              {mainProfile.mainAccountNo}
+              Account Number: {mainProfile.mainAccountNo}
             </Typography>
             <Typography
               className={classes.locationText}
               color='textSecondary'
               variant='body1'
             >
-              {mainProfile.cityName}, {mainProfile.address}
+              Address: {mainProfile.cityName}, {mainProfile.address}
             </Typography>
             <Typography
               className={classes.dateText}

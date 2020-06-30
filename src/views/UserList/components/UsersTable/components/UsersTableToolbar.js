@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import validate from 'validate.js';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../../../constants'
+import { API_LOGIN } from '../../../../../constants'
 import { makeStyles } from '@material-ui/styles';
 import { Button, Checkbox, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core';
 
@@ -166,7 +166,7 @@ const UsersTableToolbar = props => {
     
     axios({
       method: 'POST', 
-      url: API_BASE_URL + '/login-service/v1/auth/signup', 
+      url: API_LOGIN + '/v1/auth/signup', 
       data: data, 
       headers: {
         'Authorization': `Bearer ${localData.accessToken}`,

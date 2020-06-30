@@ -50,8 +50,9 @@ const Topbar = props => {
           <RouterLink to="/dashboard">
             <img
               alt="Logo"
-              src="/images/logos/mandiuang-trans.png"
-              width="150px"
+              // src="/images/logos/mandiuang-trans.png"
+              src="/images/logos/contoh.jpeg"
+              width="50px"
               
             />
           </RouterLink>
