@@ -8,6 +8,10 @@ import { Sidebar, Topbar, Footer } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    backgroundImage: 'url(/images/mainbg.PNG)',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
+    // overflow: 'hidden', //buat no scroll
     paddingTop: 56,
     height: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -19,6 +23,14 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     height: '100%'
+  },
+  footer: {
+    // position: 'bottom'
+    // backgroundImage: 'url(/images/mainbg.PNG)',
+    // backgroundColor: 'transparent',
+    position: "absolute",
+    // bottom: theme.spacing.unit * 2,
+    // right: theme.spacing.unit * 3
   }
 }));
 
@@ -58,7 +70,7 @@ const Main = props => {
       />
       <main className={classes.content}>
         {children}
-        <Footer />
+        <Footer className={classes.footer}/>
       </main>
     </div>
   );

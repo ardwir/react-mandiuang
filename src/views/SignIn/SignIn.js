@@ -37,12 +37,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(/images/bg.PNG)',
+    //backgroundImage: 'url(/images/bg.PNG)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     // backgroundPosition: 'center'
     // backgroundColor: theme.palette.background.default,
-    // height: '100%'
+    height: '100%'
   },
   grid: {
     // backgroundColor: '#d1dae8',
@@ -55,7 +55,8 @@ const useStyles = makeStyles(theme => ({
   card:{
     // display: 'flex',
     width: '600px',
-    // width: '100%'
+    // width: '100%',
+    backgroundColor: '',
   },
   quoteContainer: {
     [theme.breakpoints.down('md')]: {

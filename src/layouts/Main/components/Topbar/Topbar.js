@@ -51,7 +51,7 @@ const Topbar = props => {
             <img
               alt="Logo"
               // src="/images/logos/mandiuang-trans.png"
-              src="/images/logos/contoh.jpeg"
+              src="/images/logos/logonew.png"
               width="50px"
               
             />

@@ -25,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     backgroundColor: theme.palette.white,
+    // backgroundImage: 'url(/images/sidebg.PNG)',
+    // backgroundSize: 'cover',
+    // backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
     display: 'flex',
     flexDirection: 'column',
     height: '100%',

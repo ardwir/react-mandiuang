@@ -4,12 +4,12 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundImage: 'url(/images/background.png)',
     paddingTop: 64,
     height: '100%'
   },
   content: {
-    height: '100%'
+    height: '100%',
+    backgroundImage: 'url(/images/bg.png)'
   },
 }));
 
