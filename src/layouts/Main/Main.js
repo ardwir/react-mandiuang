@@ -8,9 +8,9 @@ import { Sidebar, Topbar, Footer } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: 'url(/images/mainbg.PNG)',
-    backgroundAttachment: 'fixed',
-    backgroundSize: 'cover',
+    // backgroundImage: 'url(/images/mainbg.PNG)',
+    // backgroundAttachment: 'fixed',
+    // backgroundSize: 'cover',
     // overflow: 'hidden', //buat no scroll
     paddingTop: 56,
     height: '100%',
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   footer: {
     // position: 'bottom'
     // backgroundImage: 'url(/images/mainbg.PNG)',
-    // backgroundColor: 'transparent',
+    backgroundColor: 'transparent',
     position: "absolute",
     // bottom: theme.spacing.unit * 2,
     // right: theme.spacing.unit * 3

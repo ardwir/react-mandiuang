@@ -11,6 +11,9 @@ html {
 }
 
 body {
+  background-image: url(/images/mainbg.PNG);
+  background-size: cover;
+  background-attachment: fixed;
   background-color: #f4f6f8;
   height: 100%;
 }

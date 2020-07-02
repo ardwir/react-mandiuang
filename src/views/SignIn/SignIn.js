@@ -34,15 +34,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.neutral,
     height: '100%',
-    display: 'flex',
+    // display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundImage: 'url(/images/bg.PNG)',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    // backgroundPosition: 'center'
-    // backgroundColor: theme.palette.background.default,
-    height: '100%'
+    backgroundRepeat: 'no-repeat'
   },
   grid: {
     // backgroundColor: '#d1dae8',
@@ -52,35 +48,19 @@ const useStyles = makeStyles(theme => ({
     alignItems: "right",
     justify: "center",
   },
-  card:{
+  card: {
     // display: 'flex',
-    width: '600px',
-    // width: '100%',
+    // width: '600px',
+    width: '100%',
     backgroundColor: '',
+    borderRadius: '20px',
+    marginTop: '15%',
+    marginBottom: '20%'
   },
   quoteContainer: {
     [theme.breakpoints.down('md')]: {
       display: 'none'
     }
-  },
-  quote: {
-    backgroundColor: theme.palette.neutral,
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundImage: 'url(/images/singin1.jpg)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center'
-  },
-  quoteInner: {
-    textAlign: 'center',
-    flexBasis: '600px'
-  },
-  quoteText: {
-    color: theme.palette.white,
-    fontWeight: 300
   },
   name: {
     marginTop: theme.spacing(3),
@@ -93,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   contentHeader: {
     display: 'flex',
@@ -118,8 +98,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   form: {
-    paddingLeft: 500,
-    paddingRight: 500,
+    // paddingLeft: 500,
+    // paddingRight: 500,
     paddingBottom: 10,
     paddingTop: theme.spacing(1),
     flexBasis: 700,
@@ -220,42 +200,19 @@ const SignIn = props => {
 
   return (
     <div className={classes.root}>
-      <Grid
-        className={classes.grid}
-        container
-      >
-        
-        <Grid
-          className={classes.content}
-          item
-          lg={12}
-          xs={12}
-        >
           <div className={classes.content}>
             <div className={classes.contentBody}>
               <form
                 className={classes.form}
                 onSubmit={handleSignIn}
-              >
-                {/* <img
-                  alt="Logo"
-                  src="/images/logos/MandiUangSignIn.PNG"
-                  style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
-                />
-                <br></br>
-                <br></br> */}
-                <br></br>
-                <br></br>
-                <br></br>
+                >
                 <Card className={classes.card}>
                   <form style={{}}>
                   <img
                     alt="Logo"
-                    src="/images/logos/MandiUangSignIn.PNG"
-                    style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%'}}
+                    src="/images/logos/logonewlonggreen.PNG"
+                    style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%', borderRadius:'20px'}}
                   />
-                    <br></br>
-                    <br></br>
                     <br></br>
                     <br></br>
                     <Typography
@@ -315,8 +272,6 @@ const SignIn = props => {
               </form>
             </div>
           </div>
-        </Grid>
-      </Grid>
     </div>
   );
 };

@@ -74,7 +74,7 @@ const Dashboard = () => {
         >
           <Statistic />
         </Grid>
-        <Grid
+        {/* <Grid
           item
           // lg={3}
           // md={12}
@@ -83,7 +83,7 @@ const Dashboard = () => {
           xs={12}
         >
           <LatestTransaction />
-        </Grid>
+        </Grid> */}
         <Grid
           item
           // lg={3}

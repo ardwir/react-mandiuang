@@ -9,7 +9,10 @@ const useStyles = makeStyles(() => ({
   },
   content: {
     height: '100%',
-    backgroundImage: 'url(/images/bg.png)'
+    backgroundImage: 'url(/images/bg.png)',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'false'
   },
 }));
 
