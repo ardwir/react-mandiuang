@@ -48,10 +48,10 @@ const Password = props => {
 
   const classes = useStyles();
   
-  const [values, setValues] = useState({
-    password: '',
-    confirm: ''
-  });
+  // const [values, setValues] = useState({
+  //   password: '',
+  //   confirm: ''
+  // });
   const localData = JSON.parse(localStorage.getItem("data"));
   
   const [formState, setFormState] = useState({

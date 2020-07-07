@@ -9,10 +9,19 @@ import {
   CardContent,
   CardActions,
   Divider,
-  Button
+  Button,
+  Paper
 } from '@material-ui/core';
-
-import { data, options } from './data';
+import {
+  ArgumentAxis,
+  ValueAxis,
+  Chart,
+  LineSeries,
+  SplineSeries,
+  Legend,
+  Tooltip
+} from '@devexpress/dx-react-chart-material-ui';
+import { ValueScale, Animation, EventTracker } from '@devexpress/dx-react-chart';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -25,34 +34,60 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Chart = props => {
+const data = [
+  { argument: 'JAN', value: 10000000 },
+  { argument: 'FEB', value: 15000000 },
+  { argument: 'MAR', value: 10000000 },
+  { argument: 'APR', value: 20000000 },
+  { argument: 'MAY', value: 15000000 },
+  { argument: 'JUN', value: 15000000 },
+  { argument: 'JUL', value: 10000000 },
+
+  { argument2: 'AUG', value: 11000000},
+  { argument2: 'SEP', value: 18500000 },
+  { argument2: 'OCT', value: 16000000 },
+  { argument2: 'NOV', value: 9500000 },
+  { argument2: 'DEC', value: 18000000 }
+]
+
+const Charts = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader
-        title="Forecasting"
-      />
-      <Divider />
-      <CardContent>
-        <div className={classes.chartContainer}>
-          <Bar
-            data={data}
-            options={options}
+    <Paper>
+      <Chart data={data}>
+        {/* <ValueScale name="exist" />
+        <ValueScale name="forecast" /> */}
+
+        <ArgumentAxis />
+        <ValueAxis />
+        {/* <ValueAxis scaleName="exist" showGrid={false} showLine showTicks />
+        <ValueAxis scaleName="forecast" position="left" showGrid={false} showLine showTicks /> */}
+
+        <LineSeries 
+          name="Input Data"
+          valueField="value"
+          argumentField="argument"
           />
-        </div>
-      </CardContent>
-    </Card>
-  );
+
+        <LineSeries
+          name="Forecast"
+          valueField="value"
+          argumentField="argument2"
+          />
+
+        <EventTracker />
+        <Tooltip />
+        <Animation />
+      </Chart>
+    </Paper>
+  )
 };
 
-Chart.propTypes = {
+Charts.propTypes = {
   className: PropTypes.string
 };
 
-export default Chart;
+export default Charts;

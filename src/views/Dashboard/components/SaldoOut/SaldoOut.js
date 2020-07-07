@@ -12,6 +12,7 @@ import {
   Avatar
 } from '@material-ui/core';
 import MoneyBurn from '@material-ui/icons/Eject';
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -89,7 +90,8 @@ const SaldoOut = props => {
             >
               Balance OUT
             </Typography>
-  <Typography color="inherit" variant="h4">Rp. {moneyDots}</Typography>
+          {/* <Typography color="inherit" variant="h4">Rp. {moneyDots || <Skeleton width={150} animation='wave'/>}</Typography> */}
+          <Typography color="inherit" variant="h4">Rp. {mainProfile.mainBalance || <Skeleton width={150} animation='wave'/>}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

@@ -8,15 +8,17 @@ import { Sidebar, Topbar, Footer } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // backgroundImage: 'url(/images/mainbg.PNG)',
-    // backgroundAttachment: 'fixed',
-    // backgroundSize: 'cover',
-    // overflow: 'hidden', //buat no scroll
     paddingTop: 56,
-    height: '100%',
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
     [theme.breakpoints.up('sm')]: {
       paddingTop: 64
-    }
+    },
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '-100px'
   },
   shiftContent: {
     paddingLeft: 240
@@ -25,12 +27,13 @@ const useStyles = makeStyles(theme => ({
     height: '100%'
   },
   footer: {
-    // position: 'bottom'
-    // backgroundImage: 'url(/images/mainbg.PNG)',
     backgroundColor: 'transparent',
-    position: "absolute",
-    // bottom: theme.spacing.unit * 2,
-    // right: theme.spacing.unit * 3
+    textAlign: 'right',
+    height: '100px',
+    flex: 1,
+    position: "sticky",
+    bottom: '8px',
+    right: '16px'
   }
 }));
 

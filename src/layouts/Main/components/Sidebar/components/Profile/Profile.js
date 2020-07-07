@@ -5,7 +5,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Avatar, Typography } from '@material-ui/core';
-import { API_BASE_URL } from '../../../../../../constants'
+import { API_BASE_URL } from '../../../../../../constants';
+// import Skeleton from 'react-loading-skeleton';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,9 +26,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Profile = props => {
-  const { className, ...rest } = props;
+  const { className, loading = false, ...rest } = props;
   const [ userProfile, setUserProfile ] = useState({});
   const localData = JSON.parse(localStorage.getItem("data"));
+  
 
   useEffect(() => {
     axios.get(API_BASE_URL + '/v1/user/admin', {
@@ -65,10 +68,10 @@ const Profile = props => {
         className={classes.name}
         variant="h4"
       >
-        {userProfile.name}
+        {userProfile.name || <Skeleton width={150} animation='wave' />}
       </Typography>
       <Typography variant="body2">
-        {userProfile.jobPosition}
+        {userProfile.jobPosition || <Skeleton width={100} animation='wave'/>}
       </Typography>
     </div>
   );

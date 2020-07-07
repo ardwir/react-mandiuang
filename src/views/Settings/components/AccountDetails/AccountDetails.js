@@ -14,6 +14,7 @@ import {
   Avatar,
   Typography,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -88,21 +89,21 @@ const AccountDetails = props => {
               gutterBottom
               variant="h2"
             >
-              Account Name: {mainProfile.mainAccountName}
+              {mainProfile.mainAccountName || <Skeleton width={150} animation='wave'/>}
             </Typography>
             <Typography
               gutterBottom
               color='textSecondray'
               variant='h4'
             >
-              Account Number: {mainProfile.mainAccountNo}
+              {mainProfile.mainAccountNo || <Skeleton width={150} animation='wave'/>}
             </Typography>
             <Typography
-              className={classes.locationText}
+              className={classes.locationText || <Skeleton width={150} animation='wave'/>}
               color='textSecondary'
               variant='body1'
             >
-              Address: {mainProfile.cityName}, {mainProfile.address}
+              {mainProfile.cityName || <Skeleton width={150} animation='wave'/>}, {mainProfile.address || <Skeleton width={150} animation='wave'/>}
             </Typography>
             <Typography
               className={classes.dateText}
@@ -114,7 +115,7 @@ const AccountDetails = props => {
           </div>
           <Avatar
             className={classes.avatar}
-            src={user.avatar}
+            src={user.avatar || <Skeleton width={150} animation='wave' variant='circle'/>}
           />
         </div>
         <Divider />

@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import Axios from 'axios';
-import { API_LOGIN } from '../../constants';
+import { API_LOGIN, API_BASE_URL } from '../../constants';
 
 const schema = {
   username: {
@@ -69,7 +69,9 @@ const useStyles = makeStyles(theme => ({
   bio: {
     color: theme.palette.white
   },
-  contentContainer: {},
+  contentContainer: { 
+    backgroundColor: '#f5f5f5',
+  },
   content: {
     height: '100%',
     display: 'flex',
@@ -170,6 +172,7 @@ const SignIn = props => {
     var inputData = JSON.stringify(formState.values);
     console.log(inputData);
 
+    const https = require('https'); 
     Axios({
       method: 'POST',
       // crossdomain: true,
@@ -177,7 +180,8 @@ const SignIn = props => {
       data: inputData,
       headers: {  
         'Content-Type': 'application/json'
-      }
+      },
+      httpsAgent: new https.Agent({rejectUnauthorized: false})
     }).then(Response => {
       console.log(Response)
       if(Response.status === 200){
@@ -210,7 +214,7 @@ const SignIn = props => {
                   <form style={{}}>
                   <img
                     alt="Logo"
-                    src="/images/logos/logonewlonggreen.PNG"
+                    src="/images/logos/MandiUangSignInLogo.png"
                     style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%', borderRadius:'20px'}}
                   />
                     <br></br>

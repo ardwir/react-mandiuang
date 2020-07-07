@@ -10,7 +10,8 @@ import {
   Typography,
   Avatar
 } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Skeleton from "@material-ui/lab/Skeleton";
 import { API_BASE_URL } from '../../../../constants'
 
 const useStyles = makeStyles(theme => ({
@@ -94,7 +95,8 @@ const Saldo = props => {
               Total Balance
             </Typography>
             
-            <Typography color="inherit" variant="h4">Rp. {moneyDots}</Typography>
+            {/* <Typography color="inherit" variant="h4">Rp. {moneyDots || <Skeleton width={150} animation='wave'/>}</Typography> */}
+            <Typography color="inherit" variant="h4">Rp. {mainProfile.mainBalance || <Skeleton width={150} animation='wave'/>}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

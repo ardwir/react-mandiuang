@@ -60,7 +60,7 @@ const Dashboard = () => {
         >
           <SaldoOut />
         </Grid>
-        <Grid
+        {/* <Grid
           item
           sm={6}
           xs={12}
@@ -74,7 +74,7 @@ const Dashboard = () => {
         >
           <Statistic />
         </Grid>
-        {/* <Grid
+        <Grid
           item
           // lg={3}
           // md={12}

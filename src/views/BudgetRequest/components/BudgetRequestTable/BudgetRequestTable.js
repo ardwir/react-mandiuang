@@ -33,7 +33,7 @@ import {
   TablePagination,
   Typography
 } from '@material-ui/core';
-
+import Skeleton from 'react-loading-skeleton';
 import mockData from './data';
 import { StatusBullet } from 'components';
 
@@ -425,11 +425,11 @@ const BudgetRequestTable = props => {
                     onClick={()=>handleRowClick(request.reqId, request.branchAcctIdSubmit, request.branchAcctNoSubmit, request.requestAmt,
                     request.purpose, request.remarks, request.submitBy)}
                   >
-                    <TableCell>{request.reqId}</TableCell>
-                    <TableCell>{request.branchAcctIdSubmit}</TableCell>
-                    <TableCell>{request.requestAmt}</TableCell>
+                    <TableCell>{request.reqId || <Skeleton width={150} animation='wave'/>}</TableCell>
+                    <TableCell>{request.branchAcctIdSubmit || <Skeleton width={150} animation='wave'/>}</TableCell>
+                    <TableCell>{request.requestAmt || <Skeleton width={150} animation='wave'/>}</TableCell>
                     <TableCell>
-                      {moment(request.submitDate).format('DD/MM/YYYY')}
+                      {moment(request.submitDate).format('DD/MM/YYYY') || <Skeleton width={150} animation='wave'/>}
                     </TableCell>
                     <TableCell>
                       <div className={classes.statusContainer}>
@@ -438,11 +438,11 @@ const BudgetRequestTable = props => {
                           color={statusColors[request.status]}
                           size="sm"
                         />
-                        {request.status}
+                        {request.status || <Skeleton width={150} animation='wave'/>}
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                )) }
               </TableBody>
             </Table>
           </div>
