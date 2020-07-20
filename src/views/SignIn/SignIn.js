@@ -54,8 +54,8 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     backgroundColor: '',
     borderRadius: '20px',
-    marginTop: '15%',
-    marginBottom: '20%'
+    marginTop: '10%',
+    // marginBottom: '20%'
   },
   quoteContainer: {
     [theme.breakpoints.down('md')]: {
@@ -215,7 +215,7 @@ const SignIn = props => {
                   <img
                     alt="Logo"
                     src="/images/logos/MandiUangSignInLogo.png"
-                    style={{paddingTop:'10%',paddingLeft: '10%', paddingRight:'10%', width:'100%', borderRadius:'20px'}}
+                    style={{paddingTop:'5%',paddingLeft: '10%', paddingRight:'10%', width:'100%', borderRadius:'20px'}}
                   />
                     <br></br>
                     <br></br>
