@@ -11,7 +11,7 @@ export default {
     dark: '#24923c',
     // main: '#38B0AC',
     // main: '#68c37b',
-    main: '#00A479', //warna utama
+    main: '#00ae8d', //warna utama
     // main: '#005391',
     // main: '#298F9E',
     light: '#c6efcf'

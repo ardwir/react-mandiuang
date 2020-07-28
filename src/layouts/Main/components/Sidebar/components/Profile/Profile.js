@@ -5,9 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Avatar, Typography } from '@material-ui/core';
-import { API_BASE_URL } from '../../../../../../constants';
-// import Skeleton from 'react-loading-skeleton';
-import Skeleton from '@material-ui/lab/Skeleton';
+import { API_BASE_URL } from '../../../../../../constants'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,15 +24,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Profile = props => {
-  const { className, loading = false, ...rest } = props;
+  const { className, ...rest } = props;
   const [ userProfile, setUserProfile ] = useState({});
   const localData = JSON.parse(localStorage.getItem("data"));
-  
 
   useEffect(() => {
-    axios.get(API_BASE_URL + '/v1/user/admin', {
+    axios.get(API_BASE_URL + '/login-service/v1/user/admin', {
         headers: {
-          'Authorization': `Bearer ${localData.accessToken}` 
+          'Authorization': `Bearer ${localData}` 
         }
     })
         .then(res => {
@@ -42,7 +39,7 @@ const Profile = props => {
             setUserProfile(res.data);
         })
         .catch(err => {
-            console.log(err + localData.accessToken)
+            console.log(err + localData)
         })
   }, [userProfile.id])
   
@@ -68,10 +65,10 @@ const Profile = props => {
         className={classes.name}
         variant="h4"
       >
-        {userProfile.name || <Skeleton width={150} animation='wave' />}
+        {userProfile.name}
       </Typography>
       <Typography variant="body2">
-        {userProfile.jobPosition || <Skeleton width={100} animation='wave'/>}
+        {userProfile.jobPosition}
       </Typography>
     </div>
   );

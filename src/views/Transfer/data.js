@@ -6,7 +6,7 @@ export default [
     branchId: '100',
     branchName: 'ABC Part 1',
     branchAccountNumber: '1234567890',
-    balance: 'Rp. 210.000.000',
+    balance: 'Rp. 120.000.000',
     address: {
       country: 'Indonesia',
       state: 'DKI Jakarta',

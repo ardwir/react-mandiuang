@@ -12,7 +12,6 @@ import PermIdentity from '@material-ui/icons/PermIdentity'
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
-import Skeleton from '@material-ui/lab/Skeleton'
 
 import { Profile, SidebarNav } from './components';
 
@@ -103,9 +102,9 @@ const Sidebar = props => {
         {...rest}
         className={clsx(classes.root, className)}
       >
-        <Profile><Skeleton count={3}/></Profile>
+        <Profile />
         <Divider className={classes.divider} />
-        <SidebarNav 
+        <SidebarNav
           className={classes.nav}
           pages={pages}
         />

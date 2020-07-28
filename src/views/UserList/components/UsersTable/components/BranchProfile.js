@@ -5,6 +5,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../../constants'
 import { makeStyles } from '@material-ui/styles';
+import CurrencyFormat from 'react-currency-format';
 import {
   Card,
   CardContent,
@@ -17,7 +18,8 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {},
   details: {
-    display: 'flex'
+    // display: 'flex',
+    width: '100%'
   },
   avatar: {
     marginLeft: 'auto',
@@ -31,6 +33,18 @@ const useStyles = makeStyles(theme => ({
   },
   uploadButton: {
     marginRight: theme.spacing(2)
+  },
+  colorPrimary: {
+    backgroundColor: '#B2DFDB',
+  },
+  barColorPrimary: {
+    backgroundColor: '#00695C',
+  },
+  barColorPrimaryBlue: {
+    backgroundColor: '#28B8D7',
+  },
+  barColorPrimaryRed: {
+    backgroundColor: '#FD7B6F',
   }
 }));
 
@@ -39,22 +53,38 @@ const BranchProfile = props => {
   console.log(branchId)
   const classes = useStyles();
   const [ branchProfile, setBranchProfile ] = useState({});
+  const [ branchOut, setBranchOut ] = useState();
+  const [ branchWealth, setBranchWealth ] = useState();
   const localData = JSON.parse(localStorage.getItem("data"));
 
   useEffect(() => {
     console.log(branchId)
     axios.get(API_BASE_URL + `/mainbranch-service/v1/branch/branchProfile/${branchId}`, {
         headers: {
-          'Authorization': `Bearer ${localData.accessToken}` 
+          'Authorization': `Bearer ${localData}` 
         }
     })
-        .then(res => {
-            console.log(res) 
-            setBranchProfile(res.data);
-        })
-        .catch(err => {
-            console.log(err + localData.accessToken)
-        })
+    .then(res => {
+        console.log(res)
+        setBranchWealth(res.data.branchBalance); 
+        setBranchProfile(res.data);
+    })
+    .catch(err => {
+        console.log(err + localData)
+    })
+
+    axios.get(API_BASE_URL + `/trx-service/v1/transactionBranch/branchTotalTransactionForAdmin/${branchId}`, {
+      headers: {
+        'Authorization': `Bearer ${localData}` 
+      }
+    })
+    .then(res => {
+      console.log(res) 
+      setBranchOut(res.data);
+    })
+    .catch(err => {
+      console.log(err + localData)
+    })
   }, [branchProfile.branchAccountId])
 
   const user = {
@@ -98,20 +128,22 @@ const BranchProfile = props => {
               color="textSecondary"
               variant="body1"
             >
-              Balance: Rp. 30.000.000 / 120.000.000
+              Balance: Rp. {<CurrencyFormat value={branchOut} displayType={'text'} thousandSeparator={true} prefix={''} />} / {<CurrencyFormat value={branchProfile.branchBalance} displayType={'text'} thousandSeparator={true} prefix={''} />}
             </Typography>
             <div className={classes.progress}>
-              <Typography variant="body1">Budget Limit: 25%</Typography>
+              <Typography variant="body1">Budget Limit: {Math.round((`${branchOut}`)*100/`${branchProfile.branchBalance}`).toFixed(2)}%</Typography>
+              {/* Math.Round Bug angka pembilang nya harus di kali 100 baru bener */}
               <LinearProgress
-                value={25}
+                classes={branchOut*100/branchWealth >= 50 && branchOut*100/branchWealth < 75 ? {colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimaryBlue} : branchOut*100/branchWealth >= 75 && branchOut*100/branchWealth <=100 ? {colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimaryRed} : {colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimary}}
+                value={(`${branchOut}`/`${branchProfile.branchBalance}`)*100}
                 variant="determinate"
-              />
+            />
             </div>
-          </div>
-          <Avatar
+          </div> 
+          {/* <Avatar
             className={classes.avatar}
             src={user.avatar}
-          />
+          /> */}
         </div>
       </CardContent>
       <Divider />

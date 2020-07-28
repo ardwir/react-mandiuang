@@ -63,7 +63,7 @@ const responsive = {
 };
 
 const padding = {
-  paddingLeft: 40,
+  paddingLeft: 300,
   paddingRight: 0
 }
 

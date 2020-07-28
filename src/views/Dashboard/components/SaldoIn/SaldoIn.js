@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import MoneyIcon from '@material-ui/icons/Money';
 import Skeleton from '@material-ui/lab/Skeleton';
+import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,12 +52,10 @@ const SaldoIn = props => {
 
   const classes = useStyles();
 
-  var money = `${mainProfile.bufferBalance}`;
-  var moneyDots = money.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
   useEffect(() => {
     axios.get(API_BASE_URL + '/mainbranch-service/v1/main/mainProfile', {
         headers: {
-          'Authorization': `Bearer ${localData.accessToken}` 
+          'Authorization': `Bearer ${localData}` 
         }
     })
         .then(res => {
@@ -88,8 +87,9 @@ const SaldoIn = props => {
             >
               Useabble Balance
             </Typography>
-            {/* <Typography color="inherit" variant="h4">Rp. {moneyDots || <Skeleton width={150} animation='wave'/>}</Typography> */}
-            <Typography color="inherit" variant="h4">Rp. {mainProfile.bufferBalance || <Skeleton width={150} animation='wave'/>}</Typography>
+            <Typography color="inherit" variant="h4">
+              {<CurrencyFormat value={mainProfile.bufferBalance} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /> || <Skeleton width={150} animation='wave'/>}
+            </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

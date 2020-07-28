@@ -31,7 +31,7 @@ const ChartToolbar = props => {
   return (
     <div className={classes.root}>
       <Typography variant='h4'>
-        Select periode:
+        Select Period:
       </Typography>
       <Dropdown
         options={options}

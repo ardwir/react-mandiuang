@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../../../constants';
 import { makeStyles } from '@material-ui/styles';
 import { Button, Checkbox, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core';
 
@@ -48,6 +50,8 @@ const UsersTableToolbar = props => {
 
   const [open, setOpen] = React.useState(false);
 
+  const localData = JSON.parse(localStorage.getItem("data"));
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -55,6 +59,54 @@ const UsersTableToolbar = props => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const FileSaver = require('file-saver');
+
+  const handleGenerateReport = (branchId) => {
+    // setBranchId(branchId);
+    axios.get(API_BASE_URL + '/trx-service/v1/transactionBranch/downloadTrx/' + branchId, {
+      responseType: 'arraybuffer',
+      headers: {
+        'Authorization': `Bearer ${localData}` 
+      },
+      responseType: 'blob'
+
+  })
+      .then(res => {
+          console.log(res.data)
+          const blob = new Blob([res.data], {
+            type: 'application/pdf',
+          });
+          FileSaver.saveAs(blob, "Branch Account Report")
+      })
+      .catch(err => {
+        if (!err.response){
+          axios.get(API_BASE_URL + '/login-service/v1/auth/logout', {
+            headers: {
+              'Authorization': `Bearer ${localData}` 
+            }
+          })
+          .then(res => {
+            console.log(res);
+            console.log(res.data.message);
+            // setFailMessage("Connection Error");
+            localStorage.clear();
+            // setOpenUnauthorized(true);       
+          })
+          .catch(err => {
+            console.log(err + localData);
+          })
+        }
+        else if (err.response.status === 401){
+          // setFailMessage("Unauthorized Access");
+          localStorage.clear();
+          // setOpenUnauthorized(true);
+        }
+        else {
+          console.log(err + localData)
+        }
+      })
+  }
 
   return (
     <div
@@ -67,16 +119,11 @@ const UsersTableToolbar = props => {
           className={classes.addBranchButton}
           color="primary"
           variant="contained"
-          onClick={handleClickOpen}
+          // onClick={handleClickOpen}
+          onClick={handleGenerateReport()}
         >
-          Generate Report
+          Generate Report Branch
         </Button>
-      </div>
-      <div className={classes.row}>
-        <SearchInput
-          className={classes.searchInput}
-          placeholder="Search With Account Number"
-        />
       </div>
 
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import moment from 'moment';
+// import moment from 'moment';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../../constants'
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardContent,
-  Avatar,
+  // Avatar,
   LinearProgress,
   Typography,
   Divider
@@ -31,6 +31,12 @@ const useStyles = makeStyles(theme => ({
   },
   uploadButton: {
     marginRight: theme.spacing(2)
+  },
+  colorPrimary: {
+    backgroundColor: '#B2DFDB',
+  },
+  barColorPrimary: {
+    backgroundColor: '#00695C',
   }
 }));
 
@@ -45,7 +51,7 @@ const TransferDetail = props => {
     console.log(branchId)
     axios.get(API_BASE_URL + `/mainbranch-service/v1/branch/branchProfile/${branchId}`, {
         headers: {
-          'Authorization': `Bearer ${localData.accessToken}` 
+          'Authorization': `Bearer ${localData}` 
         }
     })
         .then(res => {
@@ -53,17 +59,17 @@ const TransferDetail = props => {
             setBranchProfile(res.data);
         })
         .catch(err => {
-            console.log(err + localData.accessToken)
+            console.log(err + localData)
         })
   }, [branchProfile.branchAccountId])
 
-  const user = {
-    name: 'Test Test',
-    city: 'DKI Jakarta',
-    country: 'Indonesia',
-    timezone: 'GTM+7',
-    avatar: '/images/avatars/Picture1.png'
-  };
+  // const user = {
+  //   name: 'Test Test',
+  //   city: 'DKI Jakarta',
+  //   country: 'Indonesia',
+  //   timezone: 'GTM+7',
+  //   avatar: '/images/avatars/Picture1.png'
+  // };
 
   return (
     <Card
@@ -77,28 +83,29 @@ const TransferDetail = props => {
               gutterBottom
               variant="h2"
             >
-              Branch Name Here
-              {/* {branchProfile.branchName} */}
+              {/* Branch Name Here */}
+              {branchProfile.branchName}
             </Typography>
             <Typography
               className={classes.locationText}
               color="textSecondary"
               variant="body1"
             >
-              Branch Location
-              {/* {branchProfile.cityName}, {branchProfile.address} */}
+              {/* Branch Location */}
+              {branchProfile.cityName}, {branchProfile.address}
             </Typography>
             <Typography
               className={classes.dateText}
               color="textSecondary"
               variant="body1"
             >
-              Balance: Rp. 30.000.000 / 120.000.000
+              Balance: Rp. 30.000.000 / {branchProfile.branchBalance}
             </Typography>
             <div className={classes.progress}>
               <Typography variant="body1">Budget Limit: 25%</Typography>
               <LinearProgress
-                value={25}
+                classes={{colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimary}}
+                value={0/`${branchProfile.branchBalance}`}
                 variant="determinate"
               />
             </div>

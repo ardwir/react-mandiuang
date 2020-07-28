@@ -13,6 +13,7 @@ import {
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Skeleton from "@material-ui/lab/Skeleton";
 import { API_BASE_URL } from '../../../../constants'
+import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,12 +58,10 @@ const Saldo = props => {
   const localData = JSON.parse(localStorage.getItem("data"));
 
   const classes = useStyles();
-  var money = `${mainProfile.mainBalance}`;
-  var moneyDots = money.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
   useEffect(() => {
     axios.get(API_BASE_URL + '/mainbranch-service/v1/main/mainProfile', {
         headers: {
-          'Authorization': `Bearer ${localData.accessToken}` 
+          'Authorization': `Bearer ${localData}` 
         }
     })
         .then(res => {
@@ -95,8 +94,9 @@ const Saldo = props => {
               Total Balance
             </Typography>
             
-            {/* <Typography color="inherit" variant="h4">Rp. {moneyDots || <Skeleton width={150} animation='wave'/>}</Typography> */}
-            <Typography color="inherit" variant="h4">Rp. {mainProfile.mainBalance || <Skeleton width={150} animation='wave'/>}</Typography>
+            <Typography color="inherit" variant="h4">
+              {<CurrencyFormat value={mainProfile.mainBalance} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /> || <Skeleton width={150} animation='wave'/>}
+            </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>

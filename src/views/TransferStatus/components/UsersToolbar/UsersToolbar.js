@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 
-import { SearchInput } from 'components';
+// import { SearchInput } from 'components';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -47,12 +47,12 @@ const UsersToolbar = props => {
           Export Data
         </Button>
       </div>
-      <div className={classes.row}>
+      {/* <div className={classes.row}>
         <SearchInput
           className={classes.searchInput}
           placeholder="Search Transfer ID"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

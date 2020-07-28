@@ -1,2 +1,2 @@
-export { default } from './UsersTableToolbar'
-export { default } from './BranchProfile'
+export { default } from './UsersTableToolbar';
+export { default } from './BranchProfile';
