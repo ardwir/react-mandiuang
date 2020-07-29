@@ -72,13 +72,6 @@ const Forecasting = props => {
       >
         <Grid
           item
-          sm={3}
-          xs={12}
-        >
-          <ChartToolbar />
-        </Grid>
-        <Grid
-          item
           sm={12}
           xs={12}
         >

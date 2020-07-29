@@ -36,7 +36,7 @@ const Routes = () => {
         component={DashboardView}
         exact
         layout={MainLayout}
-        access={"private"}
+        // access={"private"}
         path="/dashboard"
       />
       <RouteWithLayout
@@ -89,7 +89,7 @@ const Routes = () => {
         component={TransferStatusView}
         exact
         layout={MainLayout}
-        access={"private"}
+        // access={"private"}
         path="/transferstatus"
       />
       <RouteWithLayout
@@ -111,7 +111,7 @@ const Routes = () => {
         component={ForecastingView}
         exact
         layout={MainLayout}
-        access={"private"}
+        // access={"private"}
         path="/forecasting"
       />
 

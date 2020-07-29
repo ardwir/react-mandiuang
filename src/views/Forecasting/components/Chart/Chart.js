@@ -10,8 +10,11 @@ import {
   CardActions,
   Divider,
   Button,
-  Paper
+  Paper,
+  Typography
 } from '@material-ui/core';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import {
   ArgumentAxis,
   ValueAxis,
@@ -50,12 +53,31 @@ const data = [
   { argument2: 'DEC', value: 18000000 }
 ]
 
+const options = [
+  'Week', 'Month'
+];
+const defaultOption = options[1];
+
 const Charts = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   return (
+    <div className={classes.root}>
+      <div>
+        <Typography variant='h4'>
+          Select Period:
+        </Typography>
+        <Dropdown
+          options={options}
+          // onChange={this._onSelect}
+          value={defaultOption}
+          placeholder="Time Scale"
+        />
+      </div>
+    <br />
+    <br />
     <Paper>
       <Chart data={data}>
         {/* <ValueScale name="exist" />
@@ -83,6 +105,7 @@ const Charts = props => {
         <Animation />
       </Chart>
     </Paper>
+    </div>
   )
 };
 
